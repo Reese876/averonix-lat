@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Guide - Averonix</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-700: #334155;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.8rem;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .guide-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--dark);
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            color: var(--dark);
+        }
+
+        p {
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            margin-bottom: 1.5rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .tip {
+            background: var(--gray-100);
+            padding: 1rem;
+            border-left: 4px solid var(--primary);
+            margin: 1rem 0;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        .image-container {
+            margin: 2rem 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: var(--gray-100);
+            padding: 1.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 2rem 1rem;
+            }
+        }
+
+        footer {
+            background: white;
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .copyright {
+            color: var(--gray-700);
+        }
+
+        @media (max-width: 640px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="averonix-favicon.png" alt="Averonix Logo">
+                Averonix
+            </a>
+            <nav>
+                <ul style="display: flex; list-style: none; gap: 2rem;">
+                    <li><a href="/" style="color: white; text-decoration: none; font-weight: 500;">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="content">
+        <h1>Averonix User Guide For Transcript and Summarizer Tool</h1>
+        
+        <div class="guide-section">
+            <h2>Getting Started with Video Transcription</h2>
+            <p>Learn how to easily transcribe any YouTube video using Averonix:</p>
+            <ol class="step-list">
+                <li>Navigate to any YouTube video you want to transcribe</li>
+                <li>The extension panel will be loaded next to the video player</li>
+                <li>You'll see the main controls for transcription and summarization</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/Select%20video%20from%20youtube%20home%20page.PNG" alt="Select video from YouTube home page">
+            </div>
+
+        <div class="guide-section">
+            <h2>Getting Video Transcripts</h2>
+            <p>Generate accurate transcripts from your videos:</p>
+            <ol class="step-list">
+                <li>Click the button "Get Transcript" to start the transcription process</li>
+                <li>Wait a few moments while we process and generate the transcript</li>
+                <li>Once complete, the transcript will appear with timestamps</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/GET%20TRANSCRIPT.png" alt="Get Transcript button and area">
+            </div>
+
+        <div class="guide-section">
+            <h2>Working with Transcripts</h2>
+            <h3>Copying Transcripts</h3>
+            <p>To copy the transcript to your clipboard:</p>
+            <ol class="step-list">
+                <li>Click the "Copy" button at the top of the transcript</li>
+                <li>Paste the transcript anywhere you need it</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/COPY-TRANSCRIPT.png" alt="Copy transcript options">
+            </div>
+
+            <h3>Auto-Seeking Feature</h3>
+            <p>The auto-seek feature automatically tracks the current video position and highlights the corresponding transcript text:</p>
+            <ol class="step-list">
+                <li>Enable auto-seek by clicking the toggle in the extension settings</li>
+                <li>The transcript will automatically highlight the current section as the video plays</li>
+                <li>This helps you follow along with the video content in real-time</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/auto-seek.png" alt="Auto-seek feature toggle">
+            </div>
+
+            <h3>Jump to Timestamp</h3>
+            <p>Click any timestamp in the transcript panel to jump to that specific point in the video:</p>
+            <ol class="step-list">
+                <li>Look for timestamps in the transcript (e.g., [00:30], [1:15])</li>
+                <li>Click on any timestamp to jump to that exact moment in the video</li>
+                <li>The video player will automatically seek to that position</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/JUMP-TOCURRENT-TIMESTAMP.png" alt="Clicking timestamp to jump to video position">
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>Translation Options</h2>
+            <h3>Translate a Single Transcript Segment</h3>
+            <p>Quickly translate only one part of the transcript using the segment action:</p>
+            <ol class="step-list">
+                <li>Click the small translate icon at the bottom-right of that block</li>
+                <li>Choose your target language to translate just that segment</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/TRANLATE-SEGMENT-INTRANSCRIPT.png" alt="Translate a single transcript segment using the bottom-right icon">
+            </div>
+
+            <h3>Translate the Entire Transcript</h3>
+            <p>Translate all transcript text at once from the main toolbar:</p>
+            <ol class="step-list">
+                <li>At the top of the transcript panel, find the Translate button beside the Copy button</li>
+                <li>Click Translate and select your target language</li>
+                <li>The entire transcript will be translated to the selected language</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/TRANSCRIBE-ENTIRE%20TRANSCRIPT.png" alt="Translate the entire transcript using the top Translate button next to Copy">
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>Navigation and Menu</h2>
+            <h3>Open the Menu</h3>
+            <p>Access all features from the menu:</p>
+            <ol class="step-list">
+                <li>Click the hamburger icon to expand the menu</li>
+                <li>Browse through menu options.</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/Expand-menu.png" alt="Expand menu button">
+            </div>
+            <div class="image-container">
+                <img src="user-guide-image/Menu-expanded.png" alt="Menu expanded with options">
+            </div>
+            <h3>Collapse or Expand the Panel</h3>
+            <p>Hide or show the panel by:</p>
+            <ol class="step-list">
+                <li>Using the collapse/expand arrow at the top-right of the panel</li>
+                <li>Clicking once to collapse, click again to expand</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/collaspe%20panel.png" alt="Collapse or expand the transcript panel">
+            </div>
+        </div>
+
+        <div class="guide-section">
+            <h2>Summary Features</h2>
+            <h3>Generating Summaries</h3>
+            <p>Create AI-powered summaries of your videos in two simple steps:</p>
+            
+            <h4>Step 1: Choose Summary Style</h4>
+            <ol class="step-list">
+                <li>Select your preferred summary style:
+                    <ul>
+                        <li>Concise: Quick overview with key points</li>
+                        <li>Standard: Balanced coverage of main ideas</li>
+                        <li>Detailed: In-depth analysis of the content</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>Step 2: Generate Summary</h4>
+            <ol class="step-list">
+                <li>Click the "Get Summary" button</li>
+                <li>Wait while our AI processes your request</li>
+            </ol>
+
+            <div class="image-container">
+                <img src="user-guide-image/Get%20summary.png" alt="Summary generation interface showing style selection and generate button">
+            </div>
+
+            <h3>Copying Summaries</h3>
+            <p>After generating a summary, you can copy it to your clipboard:</p>
+            <ol class="step-list">
+                <li>Click the "Copy" button to saved summary to clipboard</li>
+                
+            <div class="image-container">
+                <img src="user-guide-image/copy-summary.png" alt="Copy summary options">
+            </div>
+
+            <h3>Exporting Options</h3>
+            <p>Save your summaries in different formats:</p>
+            <ol class="step-list">
+                <li>Click the "Export" button</li>
+                <li>Choose your preferred format (PDF, Markdown, TXT, or DOCX)</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/export%20options%20(2).png" alt="Export options interface">
+            </div>
+            <h3>Translate Summary</h3>
+            <p>Quickly translate your generated summary:</p>
+            <ol class="step-list">
+                <li>Open the language dropdown</li>
+                <li>Select your target language</li>
+                <li>Apply translation to see the summary in the selected language</li>
+            </ol>
+            <div class="image-container">
+                <img src="user-guide-image/Drop%20down-languages.png" alt="Language dropdown for translations">
+            </div>
+        </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Averonix. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="checkout.html">Checkout</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 

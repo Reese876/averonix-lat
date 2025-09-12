@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="averonix-favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Averonix - YouTube Transcript & Summary Tool</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3046c9;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --accent: #4cc9f0;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-700: #334155;
+            --gradient-blue: linear-gradient(135deg, #4361ee 0%, #4895ef 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-elevation: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            opacity: 0.9;
+        }
+        
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 8rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            top: -100px;
+            right: -50px;
+            z-index: 0;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            bottom: -50px;
+            left: -50px;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-graphic {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            position: relative;
+            z-index: 2;
+            perspective: 1000px;
+        }
+        
+        /* Browser mockup for hero image */
+        .browser-mockup {
+            border-radius: 12px;
+            background: white;
+            box-shadow: var(--shadow-elevation);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .browser-mockup:hover {
+            transform: none;
+        }
+        
+        .browser-header {
+            background: #f1f3f5;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+        }
+        
+        .browser-dots {
+            display: flex;
+            gap: 6px;
+            margin-right: 15px;
+        }
+        
+        .browser-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .dot-red { background-color: #ff5f57; }
+        .dot-yellow { background-color: #ffbd2e; }
+        .dot-green { background-color: #28c940; }
+        
+        .browser-address {
+            background: white;
+            border-radius: 15px;
+            flex: 1;
+            padding: 6px 15px;
+            font-size: 12px;
+            color: #495057;
+            display: flex;
+            align-items: center;
+        }
+        
+        .browser-address svg {
+            margin-right: 6px;
+            color: #adb5bd;
+        }
+        
+        .browser-content {
+            width: 100%;
+            display: block;
+        }
+        
+        /* Animated wave dividers */
+        .wave-divider {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 1;
+        }
+
+        .wave-divider svg {
+            position: relative;
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 80px;
+        }
+
+        .wave-divider .shape-fill {
+            fill: #FFFFFF;
+        }
+        
+        /* Animated gradient border */
+        .gradient-border-wrap {
+            position: relative;
+            border-radius: 12px;
+            padding: 3px;
+            background: linear-gradient(60deg, 
+                var(--primary) 0%, 
+                var(--secondary) 30%, 
+                var(--accent) 60%, 
+                var(--primary) 100%);
+            background-size: 300% 100%;
+            animation: gradient-shift 6s ease infinite;
+            margin-top: 4rem;
+        }
+        
+        @keyframes gradient-shift { 
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .gradient-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+        }
+        
+        /* Feature highlight section */
+        .feature-highlight {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e2e8f0 100%);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .highlight-graphic {
+            margin-top: 3rem;
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+        }
+        
+        .highlight-item {
+            display: flex;
+            align-items: center;
+            background: white;
+            box-shadow: var(--shadow-md);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .highlight-item:hover {
+            transform: translateX(5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .highlight-icon {
+            min-width: 80px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .highlight-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+        
+        .highlight-1 { background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); }
+        .highlight-2 { background: linear-gradient(135deg, #10b981 0%, #3b82f6 100%); }
+        .highlight-3 { background: linear-gradient(135deg, #f43f5e 0%, #8b5cf6 100%); }
+        
+        .highlight-text {
+            flex: 1;
+        }
+        
+        .highlight-text h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .highlight-text p {
+            color: var(--gray-700);
+            line-height: 1.6;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            z-index: 3;
+            background: white;
+            border-radius: 50%;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: float-slow 3s ease-in-out infinite alternate;
+        }
+        
+        .icon-1 {
+            width: 60px;
+            height: 60px;
+            top: -20px;
+            left: 20%;
+            background: linear-gradient(135deg, #fee140 0%, #fa709a 100%);
+            animation-delay: 0.5s;
+        }
+        
+        .icon-2 {
+            width: 50px;
+            height: 50px;
+            bottom: 30px;
+            right: 15%;
+            background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
+            animation-delay: 1s;
+        }
+        
+        .icon-3 {
+            width: 70px;
+            height: 70px;
+            top: 40%;
+            right: -20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation-delay: 1.5s;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s ease;
+            box-shadow: var(--shadow-md);
+            min-width: 180px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-1px);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .features {
+            padding: 6rem 2rem;
+            background:
+                radial-gradient(1200px 600px at -10% -10%, rgba(67, 97, 238, 0.08), transparent 60%),
+                radial-gradient(1000px 500px at 110% 10%, rgba(72, 149, 239, 0.08), transparent 60%),
+                #ffffff;
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #111827, #3b82f6 40%, #111827 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--gray-700);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.25rem;
+            padding: 2rem 0;
+        }
+        
+        .feature-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 2.25rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(17, 24, 39, 0.06);
+            border: 1px solid rgba(67, 97, 238, 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(400px 200px at -10% -10%, rgba(76, 201, 240, 0.15), transparent 40%),
+                        radial-gradient(400px 200px at 110% 110%, rgba(67, 97, 238, 0.15), transparent 40%);
+            opacity: 0.6;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 35px rgba(17, 24, 39, 0.12);
+            border-color: rgba(67, 97, 238, 0.25);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(72,149,239,0.15), rgba(67,97,238,0.12));
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 8px 20px rgba(67,97,238,0.12);
+        }
+        
+        .feature-icon::after {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.5), rgba(255,255,255,0));
+            pointer-events: none;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 700;
+        }
+        
+        .feature-card p {
+            color: var(--gray-700);
+            line-height: 1.7;
+        }
+        
+        .decorative-dots {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background-image: radial-gradient(var(--gray-300) 1px, transparent 1px);
+            background-size: 15px 15px;
+            opacity: 0.3;
+            z-index: 0;
+        }
+        
+        .dots-top-right {
+            top: 100px;
+            right: 50px;
+        }
+        
+        .dots-bottom-left {
+            bottom: 100px;
+            left: 50px;
+        }
+        
+        .how-it-works {
+            background: var(--gray-100);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .steps-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 3rem;
+            padding: 3rem 0;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .step:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            margin: 0 auto 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .step h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .step p {
+            color: var(--gray-700);
+            font-size: 1rem;
+        }
+        
+        .floating-shape {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .shape-1 {
+            width: 200px;
+            height: 200px;
+            background: var(--accent);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            top: 100px;
+            right: 10%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--primary);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            bottom: 100px;
+            left: 10%;
+            animation: float 6s ease-in-out infinite alternate;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(1deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            border-bottom: 1px solid white;
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+        }
+        
+        /* Additional animations and effects */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -100% 0; }
+            100% { background-position: 100% 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(90deg, 
+                rgba(255, 255, 255, 0) 0%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                rgba(255, 255, 255, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Particle background */
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+        }
+        
+        /* Spotlight effect */
+        .spotlight {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0) 60%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Animated dot pattern */
+        .dot-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.15) 2px, transparent 2px);
+            background-size: 30px 30px;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        /* Animated illustrations */
+        .feature-illustration {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .person {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .person::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 3s infinite;
+        }
+
+        .video-screen {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: var(--gray-200);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        .summary-text {
+            position: absolute;
+            top: 20px;
+            right: -200px;
+            width: 180px;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            animation: slideIn 3s infinite;
+        }
+
+        .summary-text::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid white;
+        }
+
+        .export-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite;
+        }
+
+        .export-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        @keyframes slideIn {
+            0%, 100% { transform: translateX(0); opacity: 0; }
+            20% { transform: translateX(-200px); opacity: 1; }
+            80% { transform: translateX(-200px); opacity: 1; }
+        }
+
+        .disclaimer-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            z-index: 10;
+        }
+
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            transition: all 0.1s ease;
+            border-radius: 12px;
+            padding: 12px;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(67, 97, 238, 0.1);
+        }
+
+        .browser-mockup {
+            animation: none;
+        }
+
+        .feature-icon svg {
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon svg {
+            transform: scale(1.1);
+        }
+
+        @keyframes float-slow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-15px); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="averonix-favicon.png" alt="Averonix Logo">
+                Averonix
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="user-guide.html" target="_blank">User Guide</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Unlock the Power of YouTube Content</h1>
+            <p>Extract transcripts, generate AI-powered summaries, and export with one click.</p>
+            <div class="cta-container">
+                <a href="#download" class="cta-button">Add to Chrome</a>
+                <a href="user-guide.html" class="cta-button secondary">User Guide</a>
+            </div>
+            <div class="hero-graphic">
+                <div class="browser-mockup">
+                    <div class="browser-header">
+                        <div class="browser-actions">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="browser-address-bar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span>youtube.com</span>
+                        </div>
+                    </div>
+                    <div class="browser-content">
+                        <img src="preview-image.png" alt="Averonix Chrome Extension Screenshot" style="width: 100%; height: auto; display: block;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wave-divider">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+            </svg>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-title">
+                <h2>Why Choose Averonix Transcript & Summarisation tool</h2>
+                <p>The smartest way to capture and utilize YouTube content</p>
+                <div class="gradient-border-animate"></div>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #4361ee;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                            <path d="M16 13H8"/>
+                            <path d="M16 17H8"/>
+                            <path d="M10 9H8"/>
+                        </svg>
+                    </div>
+                    <h3>Instant Transcripts</h3>
+                    <p>Extract complete, accurate transcripts from any YouTube video with a single click</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #4cc9f0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6"></path>
+                            <path d="M10 22h4"></path>
+                            <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0018 8c0-1-.27-1.96-.78-2.82a5.48 5.48 0 00-2.1-2.02C14.23 2.42 13.17 2 12 2c-1.18 0-2.24.42-3.13 1.16a5.48 5.48 0 00-2.1 2.02C6.28 6.04 6 7 6 8c0 1.44.47 2.65 1.41 3.5.94.85 1.41 1.61 1.41 2.5"></path>
+                        </svg>
+                    </div>
+                    <h3>Smart Summaries</h3>
+                    <p>Get concise summaries of video content with key points and main takeaways</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #4361ee;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+                        </svg>
+                    </div>
+                    <h3>User-Friendly Interface</h3>
+                    <p>Designed for simplicity, extract and summarize content with just a few clicks</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #4895ef;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Accurate & Reliable</h3>
+                    <p>Built with advanced AI to ensure high-quality transcripts and summaries every time</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #ef476f;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                            <path d="M12 2a10 10 0 0 1 10 10"/>
+                        </svg>
+                    </div>
+                    <h3>Save Time</h3>
+                    <p>Get the key points from long videos without watching the entire content</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="color: #06d6a0;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <h3>Easy Export</h3>
+                    <p>Export transcripts and summaries to PDF, Word, or plain text formats</p>
+                </div>
+            </div>
+            <div class="gradient-border-wrap">
+                <div class="gradient-content">
+                    <div class="section-title" style="margin-bottom: 2rem;">
+                        <h2>All-in-One Solution</h2>
+                        <p>Everything you need for efficient YouTube content utilization</p>
+                    </div>
+                    <p style="text-align: center; max-width: 800px; margin: 0 auto; color: var(--gray-700);">
+                        Averonix combines advanced AI technology with a user-friendly interface to deliver the most comprehensive YouTube content solution. Whether you're a student, researcher, content creator, or business professional, our tool will save you countless hours and unlock new ways to utilize video content.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Averonix. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="checkout.html">Checkout</a>
+              </div>
+              
+        </div>
+    </footer>
+
+<script>
+    // Empty script to preserve structure but remove animations
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialization only, no animations
+    });
+</script>
+</body>
+</html>
