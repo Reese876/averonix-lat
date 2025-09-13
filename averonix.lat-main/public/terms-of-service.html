@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Averonix</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --accent: #4cc9f0;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-700: #334155;
+            --gradient-blue: linear-gradient(135deg, #4361ee 0%, #4895ef 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.5rem;
+        }
+        
+        .home-button {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 2px solid white;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        
+        .content {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--gray-200);
+        }
+        
+        h1 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        h2 {
+            color: var(--dark);
+            margin: 2rem 0 1rem;
+            font-size: 1.8rem;
+            font-weight: 600;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        h3 {
+            color: var(--dark);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .content p {
+            margin-bottom: 1rem;
+            color: #555;
+        }
+        
+        .content ul {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+        
+        .content li {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem 0;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: var(--gray-700);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--gray-700);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            main {
+                padding: 2rem 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <img src="/averonix-favicon.png" alt="Averonix Logo"> Averonix
+            </a>
+            <a href="/" class="home-button">Home</a>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content">
+            <h1>Terms of Service</h1>
+            <p>Last Updated: [03/29/2025]</p>
+
+            <h2>AGREEMENT TO TERMS</h2>
+            <p>By installing and using the Averonix Transcript & AI Summary Generator ("the Extension"), you agree to these Terms of Service. If you disagree with any part of these terms, then you can discontinue its use and let you know via email how we may improve our services.</p>
+
+            <h2>SERVICES PROVIDED</h2>
+            <p>The Extension uses AI to generate video transcript summaries for YouTube, offering three summary styles concise, standard, and detailed. It also supports transcript extraction and export functionality (available in the Premium plan). Additionally, cross-device synchronization ensures a seamless experience by maintaining user preferences across devices.</p>
+
+            <h2>USER OBLIGATIONS</h2>
+            <p>Users must comply with the Averonix Terms of Service and use the service responsibly. You agree not to engage in activities that could harm, disrupt, or misuse the service. Maintaining account security is essential, and users are encouraged to report technical issues while ensuring fair and reasonable use of the service.</p>
+
+            <h2>REGISTRATION PROCESS</h2>
+            <p>When registering an account, you must provide accurate, complete, and up-to-date information. Failure to do so may lead to the immediate suspension or termination of your account.</p>
+            <p>You are responsible for keeping your account credentials secure, including limiting access to your device and login details. Any actions taken under your account, whether on our platform or through a third-party service, are your responsibility. If you detect any unauthorized access or security breaches, you must inform us promptly.</p>
+            <p>Your chosen username must not impersonate another individual or organization, violate trademarks or legal rights, or contain offensive, inappropriate, or obscene language.</p>
+            <p>We reserve the right to deny service, disable accounts, modify or remove content, and cancel transactions at our sole discretion.</p>
+
+            <h2>MEMBERSHIP PLANS</h2>
+            <h3>Free Tier</h3>
+            <p>Users receive three lifetime video summaries with basic summarization features and standard support.</p>
+            
+            <h3>Premium Subscription</h3>
+            <p>Averonix offers paid memberships through a Subscription, requiring an upfront payment based on a recurring Billing Cycle. Depending on your plan, billing may be monthly or yearly. Subscriptions automatically renew at the end of each Billing Cycle unless canceled or discontinued by Averonix. You can cancel your renewal anytime through your account settings or by contacting customer support.</p>
+            <p>To keep your Subscription active, you must provide a valid payment method, like a credit card, and ensure your billing information, including name, address, phone number, and payment details, are accurate and up to date.</p>
+            <p>By signing up, you authorize Averonix to process payments using your chosen method. Payments are securely handled through Paddle. Subscription fees are non-refundable unless stated in our refund policy.</p>
+
+            <h2>TRIAL PERIOD</h2>
+            <p>Averonix may, at its discretion, offer a limited-time free trial ("Free Trial"). To sign up, you may be asked to provide billing information. If you do, you won't be billed until the Free Trial ends. On the last day of the Free Trial, unless you cancel, you will be automatically charged the applicable subscription fees for your selected plan.</p>
+            <p>Averonix reserves the right to modify the Terms of Service for the Free Trial or cancel the offer at any time, without prior notice. If the Free Trial is canceled or changed, you will be notified.</p>
+            <p>By signing up for the Free Trial, you acknowledge that you've read and understood these terms, including the potential charges once the trial period ends.</p>
+            <p>Averonix may also change Subscription fees at its discretion. Any changes will take effect at the end of the current Billing Cycle. You'll receive prior notice of any fee change, giving you the chance to cancel your Subscription. Continuing to use the service after the fee change indicates your agreement to the new fee.</p>
+
+            <h2>PRICING ADJUSTMENTS</h2>
+            <p>Averonix reserves the right to modify subscription prices. The adjustments will apply at the end of the current billing cycle, and existing subscriptions will remain unchanged until renewal. Averonix will notify you in advance of any price changes, giving you the opportunity to cancel your subscription before the new prices take effect. By continuing to use the service after the fee change is in effect, you agree to the modified price and authorize Averonix to charge you accordingly.</p>
+
+            <h2>CANCELLATION & REFUNDS</h2>
+            <p>Option 1 (Focus on customer satisfaction):</p>
+            <p>Averonix aims for complete customer satisfaction. If you're dissatisfied with your service, you can request a refund within 30 days of purchase. Please provide proof of purchase and explain the issue. Note that refunds are not available for fully completed services or discounted purchases. Contact  info@averonix.lat  with your order details to begin the refund process. Approved refunds will be processed within 14 business days. This policy is subject to change.</p>
+
+            <h2>OWNERSHIP OF CONTENT</h2>
+            <p>The Extension's features and user interface, including graphics and text, are the intellectual property of Averonix and are protected by copyright laws.\</p>
+
+            <h2>DATA & INSIGHTS</h2>
+            <p>With the use of third-party service providers, we monitor the use of our product through Google Analytics, a web analytics service that tracks and reports website traffic (for more information, refer to Google's privacy policy). https://policies.google.com/privacy?hl=en-US</p>
+
+            <h2>BUG REPORTING AND USER FEEDBACK</h2>
+            <p>Users are encouraged to report technical issues to support, providing relevant details to assist debugging. While Averonix aims to resolve problems efficiently, immediate fixes are not guaranteed. Regular updates will be released to improve performance and address issues. You may contact us via our support email at  info@averonix.lat  for improvement suggestions, problems, issues, or other matters. Please note that by providing feedback, you won't retain any intellectual property rights to it. Averonix may develop similar ideas to yours, and any feedback you provide shouldn't contain confidential or proprietary information. The company isn't obligated to keep your feedback confidential. If ownership transfer of the feedback is legally complicated, you grant Averonix full rights to use your feedback in any way they choose (including modifying, publishing, and commercializing it), forever, without any charge, and even sublicensing it.</p>
+
+            <h2>THIRD-PARTY LINKS</h2>
+            <p>The Extension integrates with third-party services, including for content and payment processing. Averonix is not responsible for third-party services, and users access external links at their own risk. Averonix does not own or control third-party websites or services and is not responsible for their content, privacy practices, or any issues related to them. Averonix does not guarantee or endorse anything provided by third parties, including their offerings or websites. If you suffer damage or loss from using or relying on third-party content, goods, or services, Averonix is not liable for it. Users are strongly advised to read the Terms of Service and Privacy Policies of any third-party websites they visit.</p>
+
+            <h2>NO GUARANTEES</h2>
+            <p>The Extension is provided on an "As Is" and "As Available" basis, meaning the services are available to you exactly as they are, with no promises of quality or reliability. Averonix makes no representations or warranties regarding the services, including but not limited to the absence of errors, interruptions, or viruses. We do not guarantee that the services will meet your needs or expectations. By using the services, you accept all risks associated with them, including any issues with accuracy, security, or functionality. Averonix makes no guarantees regarding the completeness, reliability, or accuracy of the content or materials provided. We disclaim any implied warranties, including but not limited to those related to merchantability or fitness for a particular purpose. This disclaimer does not affect warranties that, by law, cannot be excluded or limited.</p>
+
+            <h2>LIMITATION OF LIABILITY</h2>
+            <p>AVERONIX IS NOT LIABLE FOR DATA LOSS, SERVICE INTERRUPTIONS, SUMMARY INACCURACIES, OR ISSUES ARISING FROM THIRD-PARTY SERVICES.</p>
+            <p>YOU AGREE TO HOLD AVERONIX, INCLUDING ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS, HARMLESS FROM ANY INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING FROM THE USE OF THE SERVICE. THIS MEANS THAT IF ANY ISSUES OR DAMAGES OCCUR DUE TO THE SERVICE, EVEN INDIRECTLY, YOU CANNOT SUE AVERONIX FOR THESE TYPES OF DAMAGES.</p>
+            <p>EXAMPLES OF DAMAGES: THIS INCLUDES, BUT IS NOT LIMITED TO, LEGAL COSTS, ATTORNEYS' FEES, COSTS RELATED TO LITIGATION OR ARBITRATION, PERSONAL INJURY, OR PROPERTY DAMAGE, EVEN IF AVERONIX WAS PREVIOUSLY WARNED THAT SUCH DAMAGE COULD OCCUR.</p>
+            <p>EXCLUSION OF CERTAIN DAMAGES: EXCEPT WHERE PROHIBITED BY LAW, IF AVERONIX IS FOUND LIABLE FOR ANYTHING, ITS LIABILITY WILL BE LIMITED TO THE AMOUNT YOU PAID FOR THE SERVICES OR PRODUCTS. IN OTHER WORDS, THE COMPANY WON'T BE RESPONSIBLE FOR MORE THAN THE AMOUNT PAID FOR THE SERVICE IN THE EVENT OF A CLAIM.</p>
+            <p>NO CONSEQUENTIAL OR PUNITIVE DAMAGES: UNDER NO CIRCUMSTANCES WILL AVERONIX BE RESPONSIBLE FOR CONSEQUENTIAL OR PUNITIVE DAMAGES, WHICH ARE TYPICALLY HIGHER THAN THE ACTUAL LOSS.</p>
+            <p>EXCEPTIONS FOR CERTAIN JURISDICTIONS: SOME STATES OR JURISDICTIONS DO NOT ALLOW THE EXCLUSION OR LIMITATION OF CERTAIN TYPES OF DAMAGES (LIKE PUNITIVE, INCIDENTAL, OR CONSEQUENTIAL DAMAGES). IF YOU ARE IN ONE OF THOSE AREAS, THE LIMITATIONS MENTIONED HERE MAY NOT APPLY TO YOU.</p>
+
+            <h2>TERMINATION OF ACCESS</h2>
+            <p>AVERONIX RESERVES THE RIGHT TO SUSPEND ACCESS TO THE SERVICE FOR VIOLATIONS OF THESE TERMS, ABUSE OF THE SERVICE, PAYMENT ISSUES, OR FOR TECHNICAL REASONS, AT OUR SOLE DISCRETION.</p>
+
+            <h2>MODIFICATIONS TO FEATURES</h2>
+            <p>Averonix may modify, remove, or change features of the service at its discretion. There is no guarantee that specific features will remain permanently, and updates may alter functionality. You will be notified of significant changes to features.</p>
+
+            <h2>UPDATES TO TERMS</h2>
+            <p>Averonix may update its Terms of Service by publishing the revised version on its website. Users are expected to check for changes. Using the service after an update means you agree to the new terms. If you do not agree, you must discontinue use.</p>
+
+            <h2>LEGAL VALIDITY AND ENFORCEMENT</h2>
+            <p>If any provision of these Terms is deemed invalid or unenforceable, the remaining provisions will still apply. These Terms are governed by applicable law, and jurisdiction will be specified accordingly.</p>
+
+            <h2>WAIVER</h2>
+            <p>If Averonix does not immediately enforce any term or provision, it does not mean that Averonix has waived or given up that right permanently. For example, if Averonix overlooks a violation once, it does not prevent the company from enforcing it in the future.</p>
+
+            <h2>SEVERABILITY</h2>
+            <p>If a court finds any part of these Terms to be invalid, illegal, or unenforceable, that part will be removed or limited as necessary. The rest of the Terms will remain in full force and effect.</p>
+
+            <h2>USER CONFIRMATION</h2>
+            <p>BY USING THE EXTENSION, YOU CONFIRM THAT YOU UNDERSTAND AND AGREE TO THESE TERMS, ACCEPT THE OUTLINED LIMITATIONS, AND COMPLY WITH THE STATED USAGE RULES.</p>
+
+            <h2>GET IN TOUCH</h2>
+            <p>For feedback, suggestions, or support, you can reach us via email at [ info@averonix.lat ].</p>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Averonix. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="terms-of-service.html">Terms of Service</a>
+                <a href="privacy-policy.html">Privacy Policy</a>
+                <a href="checkout.html">Checkout</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
