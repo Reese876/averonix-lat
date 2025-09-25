@@ -9,7 +9,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
     <link rel="apple-touch-icon" href="/averonix-favicon.png">
     <link rel="shortcut icon" href="/averonix-favicon.png">
-
+    
+    <!-- Tarteaucitron.js CSS -->
+    <link rel="stylesheet" href="/tarteaucitron/tarteaucitron.css">
+    
     <script src="/tarteaucitron/tarteaucitron.min.js"></script>
 
         <script type="text/javascript">
@@ -67,9 +70,12 @@
           "dataLayer": false, /* Send an event to dataLayer with the services status */
           "serverSide": false, /* Server side only, tags are not loaded client side */
 
-          "partnersList": true /* Show the number of partners on the popup/middle banner */
-        });
-        </script>
+           "partnersList": true /* Show the number of partners on the popup/middle banner */
+         });
+         
+         // Add Google Fonts service to trigger banner
+         (tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
+         </script>
 
 
 
