@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Test - Averonix</title>
+    <link rel="icon" type="image/png" href="averonix-favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tarteaucitron.js CSS -->
+    <link rel="stylesheet" href="tarteaucitron.css">
+    <link rel="stylesheet" href="tarteaucitron-custom.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #4361ee;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid #4361ee;
+        }
+        .cookie-info {
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .status {
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status.active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status.inactive {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍪 Cookie Consent Test Page</h1>
+        <p>This page helps you test the Tarteaucitron.js cookie consent implementation.</p>
+        
+        <div class="test-section">
+            <h2>Cookie Consent Status</h2>
+            <div id="consent-status">
+                <p>Loading consent status...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Available Services</h2>
+            <div id="services-list">
+                <p>Loading services...</p>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>Test Instructions</h2>
+            <ol>
+                <li>Open the cookie consent banner by clicking the cookie icon (bottom right)</li>
+                <li>Try accepting all cookies</li>
+                <li>Try denying all cookies</li>
+                <li>Try customizing individual services</li>
+                <li>Check the status updates above</li>
+            </ol>
+        </div>
+        
+        <div class="test-section">
+            <h2>Cookie Information</h2>
+            <div class="cookie-info">
+                <strong>Cookie Name:</strong> tarteaucitron<br>
+                <strong>Domain:</strong> .averonix.lat<br>
+                <strong>Purpose:</strong> Store user consent preferences<br>
+                <strong>Duration:</strong> 12 months
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarteaucitron.js -->
+    <script src="tarteaucitron.js"></script>
+    <script src="tarteaucitron-config.js"></script>
+    
+    <script>
+        // Test script to show consent status
+        function updateConsentStatus() {
+            const statusDiv = document.getElementById('consent-status');
+            const servicesDiv = document.getElementById('services-list');
+            
+            if (typeof tarteaucitron !== 'undefined') {
+                // Check if user has made a choice
+                const hasConsent = tarteaucitron.hasConsent();
+                const status = hasConsent ? 'active' : 'inactive';
+                const statusText = hasConsent ? 'Consent Given' : 'No Consent';
+                
+                statusDiv.innerHTML = `
+                    <p>Overall Status: <span class="status ${status}">${statusText}</span></p>
+                `;
+                
+                // List available services
+                const services = [
+                    { name: 'Google Analytics', key: 'analytics' },
+                    { name: 'Google Tag Manager', key: 'gtag' },
+                    { name: 'Google Fonts', key: 'googlefonts' },
+                    { name: 'Paddle', key: 'paddle' }
+                ];
+                
+                let servicesHtml = '<ul>';
+                services.forEach(service => {
+                    const isAllowed = tarteaucitron.user[service.key] !== false;
+                    const serviceStatus = isAllowed ? 'active' : 'inactive';
+                    const serviceStatusText = isAllowed ? 'Allowed' : 'Denied';
+                    servicesHtml += `
+                        <li>
+                            ${service.name}: <span class="status ${serviceStatus}">${serviceStatusText}</span>
+                        </li>
+                    `;
+                });
+                servicesHtml += '</ul>';
+                
+                servicesDiv.innerHTML = servicesHtml;
+            } else {
+                statusDiv.innerHTML = '<p>Error: Tarteaucitron not loaded</p>';
+                servicesDiv.innerHTML = '<p>Error: Tarteaucitron not loaded</p>';
+            }
+        }
+        
+        // Update status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(updateConsentStatus, 1000);
+        });
+        
+        // Update status when consent changes
+        if (typeof tarteaucitron !== 'undefined') {
+            tarteaucitron.userInterface = tarteaucitron.userInterface || {};
+            const originalOpenPanel = tarteaucitron.userInterface.openPanel;
+            tarteaucitron.userInterface.openPanel = function() {
+                if (originalOpenPanel) originalOpenPanel.call(this);
+                setTimeout(updateConsentStatus, 500);
+            };
+        }
+    </script>
+</body>
+</html>
