@@ -2,15 +2,8 @@
 (function() {
     "use strict";
     
-    // Wait for Tarteaucitron to be available
-    function initTarteaucitron() {
-        if (typeof tarteaucitron === 'undefined') {
-            setTimeout(initTarteaucitron, 100);
-            return;
-        }
-        
-        // Initialize Tarteaucitron with GDPR-compliant settings
-        tarteaucitron = {
+    // Initialize Tarteaucitron with GDPR-compliant settings
+    tarteaucitron = {
         "privacyUrl": "/privacy-policy.html",
         "bodyPosition": "bottom",
         "hashtag": "#tarteaucitron",
@@ -76,11 +69,7 @@
             // Paddle is already loaded in checkout page
             console.log('Paddle consent given');
         }
-        };
-        (tarteaucitron.job = tarteaucitron.job || []).push('paddle');
-    }
-    
-    // Start initialization
-    initTarteaucitron();
+    };
+    (tarteaucitron.job = tarteaucitron.job || []).push('paddle');
     
 })();
