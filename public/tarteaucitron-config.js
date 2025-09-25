@@ -2,8 +2,15 @@
 (function() {
     "use strict";
     
-    // Initialize Tarteaucitron with proper init() method
-    tarteaucitron.init({
+    // Wait for Tarteaucitron to be loaded
+    function initTarteaucitron() {
+        if (typeof tarteaucitron === 'undefined') {
+            setTimeout(initTarteaucitron, 100);
+            return;
+        }
+        
+        // Initialize Tarteaucitron with proper init() method
+        tarteaucitron.init({
         "privacyUrl": "/privacy-policy.html",
         "bodyPosition": "bottom",
         "hashtag": "#tarteaucitron",
@@ -60,7 +67,11 @@
             "use strict";
             console.log('Paddle consent given');
         }
-    };
-    (tarteaucitron.job = tarteaucitron.job || []).push('paddle');
+        };
+        (tarteaucitron.job = tarteaucitron.job || []).push('paddle');
+    }
+    
+    // Start initialization
+    initTarteaucitron();
     
 })();
