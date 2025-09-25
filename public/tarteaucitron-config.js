@@ -2,13 +2,13 @@
 (function() {
     "use strict";
     
-    // Initialize Tarteaucitron with GDPR-compliant settings
-    tarteaucitron = {
+    // Initialize Tarteaucitron with proper init() method
+    tarteaucitron.init({
         "privacyUrl": "/privacy-policy.html",
         "bodyPosition": "bottom",
         "hashtag": "#tarteaucitron",
         "cookieName": "tarteaucitron",
-        "orientation": "middle",
+        "orientation": "bottom",
         "groupServices": false,
         "showDetailsOnClick": true,
         "serviceDefaultState": "wait",
@@ -30,10 +30,7 @@
         "mandatory": true,
         "mandatoryCta": true,
         "cookieDomain": ".averonix.lat"
-    };
-    
-    // Initialize Tarteaucitron
-    (tarteaucitron.job = tarteaucitron.job || []).push('tarteaucitronInit');
+    });
     
     // Google Analytics configuration (replace with your actual GA4 ID)
     // tarteaucitron.user.analyticsUa = 'G-XXXXXXXXXX'; // Replace with your actual Google Analytics ID
@@ -48,15 +45,10 @@
     // tarteaucitron.user.facebookpixelId = 'YOUR_PIXEL_ID';
     // (tarteaucitron.job = tarteaucitron.job || []).push('facebookpixel');
     
-    // Google Fonts configuration
+    // Add Google Fonts
     (tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
     
-    // YouTube configuration (if you embed videos)
-    // tarteaucitron.user.youtubePrivacy = true;
-    // (tarteaucitron.job = tarteaucitron.job || []).push('youtube');
-    
-    // Custom services can be added here
-    // Example: Custom service for Paddle payment processing
+    // Add Paddle service for payment processing
     tarteaucitron.user.paddle = {
         "key": "paddle",
         "type": "ads",
@@ -66,7 +58,6 @@
         "cookies": ['paddlejs_customer_id', 'paddlejs_checkout_token'],
         "js": function () {
             "use strict";
-            // Paddle is already loaded in checkout page
             console.log('Paddle consent given');
         }
     };
