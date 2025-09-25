@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Cookies - Averonix</title>
+    <link rel="icon" type="image/png" href="averonix-favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tarteaucitron.js CSS -->
+    <link rel="stylesheet" href="tarteaucitron.css">
+    <link rel="stylesheet" href="tarteaucitron-custom.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        h1 {
+            color: #4361ee;
+            margin-bottom: 20px;
+        }
+        .debug-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            border-left: 4px solid #4361ee;
+        }
+        .log {
+            background: #1e293b;
+            color: #f8fafc;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status {
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status.error {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐛 Cookie Consent Debug Page</h1>
+        <p>This page helps debug the Tarteaucitron.js implementation.</p>
+        
+        <div class="debug-section">
+            <h2>Debug Information</h2>
+            <div id="debug-info">
+                <p>Loading debug information...</p>
+            </div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Console Log</h2>
+            <div id="console-log" class="log">Console output will appear here...</div>
+        </div>
+        
+        <div class="debug-section">
+            <h2>Manual Test</h2>
+            <button onclick="testTarteaucitron()">Test Tarteaucitron</button>
+            <button onclick="clearCookies()">Clear Cookies</button>
+            <button onclick="reloadPage()">Reload Page</button>
+        </div>
+    </div>
+
+    <!-- Tarteaucitron.js -->
+    <script src="tarteaucitron.js"></script>
+    <script src="tarteaucitron-simple.js"></script>
+    
+    <script>
+        let debugLog = [];
+        
+        // Override console.log to capture debug info
+        const originalLog = console.log;
+        console.log = function(...args) {
+            debugLog.push(args.join(' '));
+            originalLog.apply(console, args);
+            updateConsoleLog();
+        };
+        
+        function updateConsoleLog() {
+            const logDiv = document.getElementById('console-log');
+            logDiv.textContent = debugLog.join('\n');
+        }
+        
+        function updateDebugInfo() {
+            const debugDiv = document.getElementById('debug-info');
+            let html = '<ul>';
+            
+            // Check if Tarteaucitron is loaded
+            if (typeof tarteaucitron !== 'undefined') {
+                html += '<li><span class="status success">✓ Tarteaucitron loaded</span></li>';
+                html += '<li>Tarteaucitron version: ' + (tarteaucitron.version || 'unknown') + '</li>';
+            } else {
+                html += '<li><span class="status error">✗ Tarteaucitron not loaded</span></li>';
+            }
+            
+            // Check if banner is visible
+            const banner = document.getElementById('tarteaucitronAlertBig');
+            const smallBanner = document.getElementById('tarteaucitronAlertSmall');
+            const icon = document.getElementById('tarteaucitronIcon');
+            
+            if (banner && banner.style.display !== 'none') {
+                html += '<li><span class="status success">✓ Main banner visible</span></li>';
+            } else if (smallBanner && smallBanner.style.display !== 'none') {
+                html += '<li><span class="status success">✓ Small banner visible</span></li>';
+            } else if (icon && icon.style.display !== 'none') {
+                html += '<li><span class="status warning">⚠ Icon visible (banner might be hidden)</span></li>';
+            } else {
+                html += '<li><span class="status error">✗ No banner or icon visible</span></li>';
+            }
+            
+            // Check cookies
+            const cookies = document.cookie.split(';');
+            const tarteaucitronCookie = cookies.find(c => c.trim().startsWith('tarteaucitron='));
+            if (tarteaucitronCookie) {
+                html += '<li><span class="status success">✓ Tarteaucitron cookie found</span></li>';
+                html += '<li>Cookie value: ' + tarteaucitronCookie.split('=')[1] + '</li>';
+            } else {
+                html += '<li><span class="status warning">⚠ No Tarteaucitron cookie found</span></li>';
+            }
+            
+            html += '</ul>';
+            debugDiv.innerHTML = html;
+        }
+        
+        function testTarteaucitron() {
+            console.log('Testing Tarteaucitron...');
+            if (typeof tarteaucitron !== 'undefined') {
+                console.log('Tarteaucitron is available');
+                if (tarteaucitron.userInterface && tarteaucitron.userInterface.openPanel) {
+                    console.log('Opening panel...');
+                    tarteaucitron.userInterface.openPanel();
+                } else {
+                    console.log('Panel not available');
+                }
+            } else {
+                console.log('Tarteaucitron not available');
+            }
+        }
+        
+        function clearCookies() {
+            console.log('Clearing cookies...');
+            document.cookie = 'tarteaucitron=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            console.log('Cookies cleared');
+        }
+        
+        function reloadPage() {
+            console.log('Reloading page...');
+            window.location.reload();
+        }
+        
+        // Update debug info when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded');
+            setTimeout(function() {
+                updateDebugInfo();
+                console.log('Debug info updated');
+            }, 1000);
+        });
+        
+        // Update debug info every 2 seconds
+        setInterval(updateDebugInfo, 2000);
+    </script>
+</body>
+</html>
