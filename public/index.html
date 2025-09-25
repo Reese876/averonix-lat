@@ -55,6 +55,20 @@
     
     // Add Google Fonts service
     (tarteaucitron.job = tarteaucitron.job || []).push('googlefonts');
+    
+    // Add a simple service to ensure banner appears
+    tarteaucitron.user.testService = {
+        "key": "testservice",
+        "type": "other",
+        "name": "Test Service",
+        "uri": "/privacy-policy.html",
+        "needConsent": true,
+        "cookies": ['test_cookie'],
+        "js": function () {
+            console.log('Test service consent given');
+        }
+    };
+    (tarteaucitron.job = tarteaucitron.job || []).push('testservice');
     </script>
     <style>
         :root {
