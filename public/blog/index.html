@@ -403,7 +403,26 @@
     
     <div class="blog-container">
         <div class="blog-grid" id="blog-articles">
-            <!-- Blog articles will be loaded dynamically -->
+            <!-- Fallback content in case JavaScript doesn't load -->
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    🚀
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>January 20, 2025</span>
+                        </div>
+                        <div class="blog-card-category">Product</div>
+                    </div>
+                    <h3>Introducing Averonix: The Ultimate YouTube Transcript & Summary Tool</h3>
+                    <p>Discover how Averonix revolutionizes the way you extract, summarize, and utilize YouTube content with AI-powered technology.</p>
+                    <a href="introducing-averonix-youtube-transcript-tool.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
         </div>
         
         <div class="newsletter-signup">
@@ -431,50 +450,75 @@
 
     <script src="blog-data.js"></script>
     <script>
-        // Simple blog loading
+        // Simple blog loading with error handling
         document.addEventListener('DOMContentLoaded', function() {
-            loadBlogArticles();
+            try {
+                loadBlogArticles();
+            } catch (error) {
+                console.error('Error loading blog articles:', error);
+                // Keep the fallback content if JavaScript fails
+            }
         });
 
         function loadBlogArticles() {
-            const articles = blogManager.getPublishedArticles();
-            const container = document.getElementById('blog-articles');
-            
-            if (articles.length === 0) {
-                container.innerHTML = '<div class="loading">No articles found. Check back soon!</div>';
-                return;
-            }
-            
-            container.innerHTML = articles.map(article => `
-                <article class="blog-card">
-                    <div class="blog-card-image">
-                        ${article.image}
-                    </div>
-                    <div class="blog-card-content">
-                        <div class="blog-card-meta">
-                            <div class="blog-card-date">
-                                <span>📅</span>
-                                <span>${formatDate(article.createdAt)}</span>
-                            </div>
-                            <div class="blog-card-category">${article.category}</div>
+            try {
+                // Check if blogManager exists
+                if (typeof blogManager === 'undefined') {
+                    console.error('blogManager is not defined');
+                    return;
+                }
+
+                const articles = blogManager.getPublishedArticles();
+                const container = document.getElementById('blog-articles');
+                
+                if (!container) {
+                    console.error('Blog articles container not found');
+                    return;
+                }
+                
+                if (articles.length === 0) {
+                    container.innerHTML = '<div class="loading">No articles found. Check back soon!</div>';
+                    return;
+                }
+                
+                container.innerHTML = articles.map(article => `
+                    <article class="blog-card">
+                        <div class="blog-card-image">
+                            ${article.image}
                         </div>
-                        <h3>${article.title}</h3>
-                        <p>${article.excerpt}</p>
-                        <a href="${article.id}.html" class="blog-card-link">
-                            Read More →
-                        </a>
-                    </div>
-                </article>
-            `).join('');
+                        <div class="blog-card-content">
+                            <div class="blog-card-meta">
+                                <div class="blog-card-date">
+                                    <span>📅</span>
+                                    <span>${formatDate(article.createdAt)}</span>
+                                </div>
+                                <div class="blog-card-category">${article.category}</div>
+                            </div>
+                            <h3>${article.title}</h3>
+                            <p>${article.excerpt}</p>
+                            <a href="${article.id}.html" class="blog-card-link">
+                                Read More →
+                            </a>
+                        </div>
+                    </article>
+                `).join('');
+            } catch (error) {
+                console.error('Error in loadBlogArticles:', error);
+            }
         }
 
         function formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-            });
+            try {
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-US', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+            } catch (error) {
+                console.error('Error formatting date:', error);
+                return dateString;
+            }
         }
     </script>
 </body>
