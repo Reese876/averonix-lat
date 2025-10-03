@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="../averonix-favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Averonix</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/3de31229bb88dce2b1a9e5ae/script.js"></script> <!-- End cookieyes banner -->
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3046c9;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --accent: #4cc9f0;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-700: #334155;
+            --gradient-blue: linear-gradient(135deg, #4361ee 0%, #4895ef 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-elevation: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            opacity: 0.9;
+        }
+        
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+        
+        nav ul li a.active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .blog-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        
+        .blog-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .blog-card-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .blog-card-content {
+            padding: 1.5rem;
+        }
+        
+        .blog-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+        
+        .blog-card-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .blog-card-category {
+            background: var(--gray-100);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .blog-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .blog-card p {
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .blog-card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+        
+        .blog-card-link:hover {
+            color: var(--primary-dark);
+        }
+        
+        .blog-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .pagination-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--gray-300);
+            background: white;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .pagination-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .pagination-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .newsletter-signup {
+            background: var(--gray-100);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 4rem 0;
+        }
+        
+        .newsletter-signup h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .newsletter-signup p {
+            color: var(--gray-700);
+            margin-bottom: 2rem;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        
+        .newsletter-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--gradient-blue);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .newsletter-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            border-bottom: 1px solid white;
+        }
+        
+        @media (max-width: 768px) {
+            .blog-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <img src="../averonix-favicon.png" alt="Averonix Logo">
+                Averonix
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="../#features">Features</a></li>
+                    <li><a href="../user-guide.html">User Guide</a></li>
+                    <li><a href="index.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="blog-hero">
+        <h1>Blog & Insights</h1>
+        <p>Discover tips, tutorials, and insights about YouTube content creation and productivity</p>
+    </section>
+    
+    <div class="blog-container">
+        <div class="blog-grid">
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    📝
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>January 15, 2025</span>
+                        </div>
+                        <div class="blog-card-category">Tutorial</div>
+                    </div>
+                    <h3>How to Extract Transcripts from Long YouTube Videos</h3>
+                    <p>Learn the best practices for extracting and organizing transcripts from lengthy educational content and webinars.</p>
+                    <a href="how-to-extract-transcripts.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    🎯
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>January 10, 2025</span>
+                        </div>
+                        <div class="blog-card-category">Tips</div>
+                    </div>
+                    <h3>5 Ways to Use AI Summaries for Content Research</h3>
+                    <p>Discover how content creators and researchers can leverage AI-powered summaries to streamline their workflow.</p>
+                    <a href="ai-summaries-content-research.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    ⚡
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>January 5, 2025</span>
+                        </div>
+                        <div class="blog-card-category">Productivity</div>
+                    </div>
+                    <h3>Maximizing Productivity with YouTube Content</h3>
+                    <p>Learn how to efficiently consume and extract value from educational YouTube videos without watching every minute.</p>
+                    <a href="maximizing-productivity-youtube.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    🔧
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>December 28, 2024</span>
+                        </div>
+                        <div class="blog-card-category">Features</div>
+                    </div>
+                    <h3>New Export Features: PDF, Word, and More</h3>
+                    <p>Explore the latest export options and learn how to customize your transcript and summary exports.</p>
+                    <a href="new-export-features.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    🎓
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>December 20, 2024</span>
+                        </div>
+                        <div class="blog-card-category">Education</div>
+                    </div>
+                    <h3>How Students Can Benefit from Transcript Tools</h3>
+                    <p>Discover how students can use transcript extraction and summarization to enhance their learning experience.</p>
+                    <a href="students-benefit-transcript-tools.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
+                <div class="blog-card-image">
+                    💼
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-card-meta">
+                        <div class="blog-card-date">
+                            <span>📅</span>
+                            <span>December 15, 2024</span>
+                        </div>
+                        <div class="blog-card-category">Business</div>
+                    </div>
+                    <h3>Using YouTube Content for Business Intelligence</h3>
+                    <p>Learn how businesses can extract insights from competitor videos and industry content using transcript analysis.</p>
+                    <a href="youtube-content-business-intelligence.html" class="blog-card-link">
+                        Read More →
+                    </a>
+                </div>
+            </article>
+        </div>
+        
+        <div class="newsletter-signup">
+            <h3>Stay Updated</h3>
+            <p>Get the latest tips, tutorials, and feature updates delivered to your inbox.</p>
+            <form class="newsletter-form">
+                <input type="email" class="newsletter-input" placeholder="Enter your email address" required>
+                <button type="submit" class="newsletter-btn">Subscribe</button>
+            </form>
+        </div>
+        
+        <div class="blog-pagination">
+            <a href="#" class="pagination-btn" disabled>← Previous</a>
+            <a href="#" class="pagination-btn active">1</a>
+            <a href="#" class="pagination-btn">2</a>
+            <a href="#" class="pagination-btn">3</a>
+            <a href="#" class="pagination-btn">Next →</a>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Averonix. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="../terms-of-service.html">Terms of Service</a>
+                <a href="../privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

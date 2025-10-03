@@ -1,0 +1,26 @@
+Stage your changes
+
+git add .
+
+
+. stages all changes (new, modified, deleted files).
+
+Commit your changes with a message
+
+git commit -m "Your commit message here"
+
+
+Replace "Your commit message here" with a description of your changes.
+
+Push your changes to the remote repository
+
+git push origin main
+
+
+origin = name of your remote repository.
+
+main = branch you are pushing to.
+
+✅ Optional: Check status anytime:
+
+git status
