@@ -402,126 +402,8 @@
     </section>
     
     <div class="blog-container">
-        <div class="blog-grid">
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    📝
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>January 15, 2025</span>
-                        </div>
-                        <div class="blog-card-category">Tutorial</div>
-                    </div>
-                    <h3>How to Extract Transcripts from Long YouTube Videos</h3>
-                    <p>Learn the best practices for extracting and organizing transcripts from lengthy educational content and webinars.</p>
-                    <a href="how-to-extract-transcripts.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
-            
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    🎯
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>January 10, 2025</span>
-                        </div>
-                        <div class="blog-card-category">Tips</div>
-                    </div>
-                    <h3>5 Ways to Use AI Summaries for Content Research</h3>
-                    <p>Discover how content creators and researchers can leverage AI-powered summaries to streamline their workflow.</p>
-                    <a href="ai-summaries-content-research.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
-            
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    ⚡
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>January 5, 2025</span>
-                        </div>
-                        <div class="blog-card-category">Productivity</div>
-                    </div>
-                    <h3>Maximizing Productivity with YouTube Content</h3>
-                    <p>Learn how to efficiently consume and extract value from educational YouTube videos without watching every minute.</p>
-                    <a href="maximizing-productivity-youtube.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
-            
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    🔧
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>December 28, 2024</span>
-                        </div>
-                        <div class="blog-card-category">Features</div>
-                    </div>
-                    <h3>New Export Features: PDF, Word, and More</h3>
-                    <p>Explore the latest export options and learn how to customize your transcript and summary exports.</p>
-                    <a href="new-export-features.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
-            
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    🎓
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>December 20, 2024</span>
-                        </div>
-                        <div class="blog-card-category">Education</div>
-                    </div>
-                    <h3>How Students Can Benefit from Transcript Tools</h3>
-                    <p>Discover how students can use transcript extraction and summarization to enhance their learning experience.</p>
-                    <a href="students-benefit-transcript-tools.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
-            
-            <article class="blog-card">
-                <div class="blog-card-image">
-                    💼
-                </div>
-                <div class="blog-card-content">
-                    <div class="blog-card-meta">
-                        <div class="blog-card-date">
-                            <span>📅</span>
-                            <span>December 15, 2024</span>
-                        </div>
-                        <div class="blog-card-category">Business</div>
-                    </div>
-                    <h3>Using YouTube Content for Business Intelligence</h3>
-                    <p>Learn how businesses can extract insights from competitor videos and industry content using transcript analysis.</p>
-                    <a href="youtube-content-business-intelligence.html" class="blog-card-link">
-                        Read More →
-                    </a>
-                </div>
-            </article>
+        <div class="blog-grid" id="blog-articles">
+            <!-- Blog articles will be loaded dynamically -->
         </div>
         
         <div class="newsletter-signup">
@@ -533,13 +415,6 @@
             </form>
         </div>
         
-        <div class="blog-pagination">
-            <a href="#" class="pagination-btn" disabled>← Previous</a>
-            <a href="#" class="pagination-btn active">1</a>
-            <a href="#" class="pagination-btn">2</a>
-            <a href="#" class="pagination-btn">3</a>
-            <a href="#" class="pagination-btn">Next →</a>
-        </div>
     </div>
     
     <footer>
@@ -553,5 +428,54 @@
             </div>
         </div>
     </footer>
+
+    <script src="blog-data.js"></script>
+    <script>
+        // Simple blog loading
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlogArticles();
+        });
+
+        function loadBlogArticles() {
+            const articles = blogManager.getPublishedArticles();
+            const container = document.getElementById('blog-articles');
+            
+            if (articles.length === 0) {
+                container.innerHTML = '<div class="loading">No articles found. Check back soon!</div>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <article class="blog-card">
+                    <div class="blog-card-image">
+                        ${article.image}
+                    </div>
+                    <div class="blog-card-content">
+                        <div class="blog-card-meta">
+                            <div class="blog-card-date">
+                                <span>📅</span>
+                                <span>${formatDate(article.createdAt)}</span>
+                            </div>
+                            <div class="blog-card-category">${article.category}</div>
+                        </div>
+                        <h3>${article.title}</h3>
+                        <p>${article.excerpt}</p>
+                        <a href="${article.id}.html" class="blog-card-link">
+                            Read More →
+                        </a>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+    </script>
 </body>
 </html>

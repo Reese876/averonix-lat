@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="../averonix-favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin - Averonix</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3046c9;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --accent: #4cc9f0;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-700: #334155;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gradient-blue: linear-gradient(135deg, #4361ee 0%, #4895ef 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .admin-header {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .admin-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+        
+        .admin-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .admin-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .nav-btn {
+            padding: 0.75rem 1.5rem;
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .admin-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-200);
+            color: var(--dark);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-300);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+        
+        .btn-error {
+            background: var(--error);
+            color: white;
+        }
+        
+        .article-list {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .article-item {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+        
+        .article-item:hover {
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .article-excerpt {
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+        }
+        
+        .article-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-published {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .status-draft {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+        
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray-700);
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-nav {
+                flex-direction: column;
+            }
+            
+            .article-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📝 Blog Admin Panel</h1>
+            <p>Manage your blog articles and content</p>
+        </div>
+        
+        <div class="admin-nav">
+            <button class="nav-btn active" onclick="showSection('articles')">📋 All Articles</button>
+            <button class="nav-btn" onclick="showSection('create')">✏️ Create Article</button>
+            <button class="nav-btn" onclick="showSection('settings')">⚙️ Settings</button>
+        </div>
+        
+        <!-- Articles List Section -->
+        <div id="articles-section" class="admin-section">
+            <div class="section-title">📋 All Articles</div>
+            <div id="articles-list" class="article-list">
+                <div class="loading">Loading articles...</div>
+            </div>
+        </div>
+        
+        <!-- Create Article Section -->
+        <div id="create-section" class="admin-section hidden">
+            <div class="section-title">✏️ Create New Article</div>
+            <form id="article-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="article-title">Article Title *</label>
+                        <input type="text" id="article-title" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="article-category">Category</label>
+                        <select id="article-category" class="form-select">
+                            <option value="Tutorial">Tutorial</option>
+                            <option value="Tips">Tips</option>
+                            <option value="Productivity">Productivity</option>
+                            <option value="Features">Features</option>
+                            <option value="Education">Education</option>
+                            <option value="Business">Business</option>
+                            <option value="News">News</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="article-excerpt">Excerpt/Description *</label>
+                        <textarea id="article-excerpt" class="form-textarea" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="article-image">Featured Image (Emoji)</label>
+                        <input type="text" id="article-image" class="form-input" placeholder="📝" maxlength="2">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="article-content">Article Content *</label>
+                    <textarea id="article-content" class="form-textarea" rows="15" required placeholder="Write your article content here using HTML or Markdown..."></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="article-tags">Tags (comma-separated)</label>
+                        <input type="text" id="article-tags" class="form-input" placeholder="youtube, transcripts, productivity">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="article-status">Status</label>
+                        <select id="article-status" class="form-select">
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary">💾 Save Article</button>
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">🔄 Reset Form</button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Settings Section -->
+        <div id="settings-section" class="admin-section hidden">
+            <div class="section-title">⚙️ Blog Settings</div>
+            <div class="form-group">
+                <label class="form-label">Generate Article Pages</label>
+                <p style="color: var(--gray-700); margin-bottom: 1rem;">Generate individual HTML files for each published article. This will create static pages that can be uploaded to your server.</p>
+                <button class="btn btn-primary" onclick="generateArticlePages()">🚀 Generate Article Pages</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Export Articles</label>
+                <p style="color: var(--gray-700); margin-bottom: 1rem;">Download all articles as a JSON file for backup or migration.</p>
+                <button class="btn btn-secondary" onclick="exportArticles()">📥 Export Articles</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Import Articles</label>
+                <p style="color: var(--gray-700); margin-bottom: 1rem;">Import articles from a JSON file.</p>
+                <input type="file" id="import-file" accept=".json" style="margin-bottom: 1rem;">
+                <button class="btn btn-secondary" onclick="importArticles()">📤 Import Articles</button>
+            </div>
+        </div>
+        
+        <div id="alert-container"></div>
+    </div>
+
+    <script>
+        // Global variables
+        let articles = [];
+        let editingArticleId = null;
+
+        // Initialize the admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            loadArticles();
+            setupEventListeners();
+        });
+
+        // Load articles from localStorage
+        function loadArticles() {
+            const stored = localStorage.getItem('averonix_articles');
+            if (stored) {
+                articles = JSON.parse(stored);
+            } else {
+                // Initialize with sample articles
+                articles = [
+                    {
+                        id: 'how-to-extract-transcripts',
+                        title: 'How to Extract Transcripts from Long YouTube Videos',
+                        excerpt: 'Learn the best practices for extracting and organizing transcripts from lengthy educational content and webinars.',
+                        content: '<p>Whether you\'re a student, researcher, or content creator, extracting transcripts from long YouTube videos can be incredibly valuable for your work...</p>',
+                        category: 'Tutorial',
+                        tags: ['transcripts', 'youtube', 'productivity', 'tutorial', 'education'],
+                        image: '📝',
+                        status: 'published',
+                        createdAt: '2025-01-15',
+                        updatedAt: '2025-01-15'
+                    },
+                    {
+                        id: 'ai-summaries-content-research',
+                        title: '5 Ways to Use AI Summaries for Content Research',
+                        excerpt: 'Discover how content creators and researchers can leverage AI-powered summaries to streamline their workflow.',
+                        content: '<p>AI-powered summaries are revolutionizing how we consume and process information...</p>',
+                        category: 'Tips',
+                        tags: ['ai', 'summaries', 'research', 'productivity'],
+                        image: '🎯',
+                        status: 'published',
+                        createdAt: '2025-01-10',
+                        updatedAt: '2025-01-10'
+                    }
+                ];
+                saveArticles();
+            }
+            renderArticles();
+        }
+
+        // Save articles to localStorage
+        function saveArticles() {
+            localStorage.setItem('averonix_articles', JSON.stringify(articles));
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            document.getElementById('article-form').addEventListener('submit', handleFormSubmit);
+        }
+
+        // Show specific section
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName + '-section').classList.remove('hidden');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Load articles if showing articles section
+            if (sectionName === 'articles') {
+                loadArticles();
+            }
+        }
+
+        // Render articles list
+        function renderArticles() {
+            const container = document.getElementById('articles-list');
+            
+            if (articles.length === 0) {
+                container.innerHTML = '<div class="loading">No articles found. Create your first article!</div>';
+                return;
+            }
+            
+            container.innerHTML = articles.map(article => `
+                <div class="article-item">
+                    <div class="article-meta">
+                        <div>
+                            <div class="article-title">${article.title}</div>
+                            <div class="article-excerpt">${article.excerpt}</div>
+                        </div>
+                        <div>
+                            <span class="status-badge status-${article.status}">${article.status}</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="color: var(--gray-700); font-size: 0.9rem;">
+                            ${article.category} • ${article.createdAt}
+                        </div>
+                        <div class="article-actions">
+                            <button class="btn btn-primary" onclick="editArticle('${article.id}')">✏️ Edit</button>
+                            <button class="btn btn-warning" onclick="duplicateArticle('${article.id}')">📋 Duplicate</button>
+                            <button class="btn btn-error" onclick="deleteArticle('${article.id}')">🗑️ Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                title: document.getElementById('article-title').value,
+                excerpt: document.getElementById('article-excerpt').value,
+                content: document.getElementById('article-content').value,
+                category: document.getElementById('article-category').value,
+                tags: document.getElementById('article-tags').value.split(',').map(tag => tag.trim()).filter(tag => tag),
+                image: document.getElementById('article-image').value || '📝',
+                status: document.getElementById('article-status').value
+            };
+            
+            if (editingArticleId) {
+                updateArticle(editingArticleId, formData);
+            } else {
+                createArticle(formData);
+            }
+        }
+
+        // Create new article
+        function createArticle(data) {
+            const id = data.title.toLowerCase()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .substring(0, 50);
+            
+            const article = {
+                id: id,
+                ...data,
+                createdAt: new Date().toISOString().split('T')[0],
+                updatedAt: new Date().toISOString().split('T')[0]
+            };
+            
+            articles.unshift(article);
+            saveArticles();
+            showAlert('Article created successfully!', 'success');
+            resetForm();
+            showSection('articles');
+        }
+
+        // Update existing article
+        function updateArticle(id, data) {
+            const index = articles.findIndex(article => article.id === id);
+            if (index !== -1) {
+                articles[index] = {
+                    ...articles[index],
+                    ...data,
+                    updatedAt: new Date().toISOString().split('T')[0]
+                };
+                saveArticles();
+                showAlert('Article updated successfully!', 'success');
+                resetForm();
+                showSection('articles');
+            }
+        }
+
+        // Edit article
+        function editArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                document.getElementById('article-title').value = article.title;
+                document.getElementById('article-excerpt').value = article.excerpt;
+                document.getElementById('article-content').value = article.content;
+                document.getElementById('article-category').value = article.category;
+                document.getElementById('article-tags').value = article.tags.join(', ');
+                document.getElementById('article-image').value = article.image;
+                document.getElementById('article-status').value = article.status;
+                
+                editingArticleId = id;
+                showSection('create');
+            }
+        }
+
+        // Duplicate article
+        function duplicateArticle(id) {
+            const article = articles.find(a => a.id === id);
+            if (article) {
+                const newArticle = {
+                    ...article,
+                    id: article.id + '-copy-' + Date.now(),
+                    title: article.title + ' (Copy)',
+                    status: 'draft',
+                    createdAt: new Date().toISOString().split('T')[0],
+                    updatedAt: new Date().toISOString().split('T')[0]
+                };
+                
+                articles.unshift(newArticle);
+                saveArticles();
+                showAlert('Article duplicated successfully!', 'success');
+                renderArticles();
+            }
+        }
+
+        // Delete article
+        function deleteArticle(id) {
+            if (confirm('Are you sure you want to delete this article?')) {
+                articles = articles.filter(article => article.id !== id);
+                saveArticles();
+                showAlert('Article deleted successfully!', 'success');
+                renderArticles();
+            }
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('article-form').reset();
+            editingArticleId = null;
+        }
+
+        // Show alert
+        function showAlert(message, type) {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 3000);
+        }
+
+        // Export articles
+        function exportArticles() {
+            const dataStr = JSON.stringify(articles, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'averonix-articles.json';
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Import articles
+        function importArticles() {
+            const fileInput = document.getElementById('import-file');
+            const file = fileInput.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const importedArticles = JSON.parse(e.target.result);
+                        articles = importedArticles;
+                        saveArticles();
+                        showAlert('Articles imported successfully!', 'success');
+                        renderArticles();
+                    } catch (error) {
+                        showAlert('Error importing articles. Please check the file format.', 'error');
+                    }
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        // Generate article pages
+        function generateArticlePages() {
+            const publishedArticles = articles.filter(article => article.status === 'published');
+            
+            if (publishedArticles.length === 0) {
+                showAlert('No published articles to generate pages for.', 'error');
+                return;
+            }
+            
+            publishedArticles.forEach(article => {
+                generateArticlePage(article);
+            });
+            
+            showAlert(`Generated ${publishedArticles.length} article pages! Check your downloads folder.`, 'success');
+        }
+
+        // Generate individual article page
+        function generateArticlePage(article) {
+            // Read the template (this would need to be loaded from the server)
+            const template = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="../averonix-favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${article.title} - Averonix Blog</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/averonix-favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/averonix-favicon.png">
+    <link rel="apple-touch-icon" href="/averonix-favicon.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/3de31229bb88dce2b1a9e5ae/script.js"></script> <!-- End cookieyes banner -->
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3046c9;
+            --secondary: #4895ef;
+            --light: #f8fafc;
+            --dark: #1e293b;
+            --accent: #4cc9f0;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-700: #334155;
+            --gradient-blue: linear-gradient(135deg, #4361ee 0%, #4895ef 100%);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-elevation: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --border-radius: 8px;
+            --transition: all 0.2s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient-blue);
+            color: white;
+            padding: 1.25rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            opacity: 0.9;
+        }
+        
+        .logo img {
+            width: 32px;
+            height: 32px;
+            margin-right: 0.8rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-1px);
+        }
+        
+        nav ul li a.active {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .article-header {
+            margin-bottom: 3rem;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+        }
+        
+        .article-category {
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .article-date {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .article-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .article-excerpt {
+            font-size: 1.2rem;
+            color: var(--gray-700);
+            margin-bottom: 2rem;
+        }
+        
+        .article-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            line-height: 1.8;
+        }
+        
+        .article-content h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 2.5rem 0 1.5rem 0;
+            color: var(--dark);
+        }
+        
+        .article-content h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: var(--dark);
+        }
+        
+        .article-content p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-700);
+        }
+        
+        .article-content ul, .article-content ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+        
+        .article-content li {
+            margin-bottom: 0.5rem;
+            color: var(--gray-700);
+        }
+        
+        .article-content blockquote {
+            border-left: 4px solid var(--primary);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--gray-700);
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .article-content code {
+            background: var(--gray-100);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .article-content pre {
+            background: var(--gray-100);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        
+        .article-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        .back-to-blog {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+        
+        .back-to-blog:hover {
+            color: var(--primary-dark);
+        }
+        
+        .article-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .tag {
+            background: var(--gray-100);
+            color: var(--gray-700);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .tag:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .copyright {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.25rem 0;
+            border-bottom: 1px solid transparent;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            border-bottom: 1px solid white;
+        }
+        
+        @media (max-width: 768px) {
+            .article-title {
+                font-size: 2rem;
+            }
+            
+            .article-content {
+                padding: 2rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="../" class="logo">
+                <img src="../averonix-favicon.png" alt="Averonix Logo">
+                Averonix
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="../#features">Features</a></li>
+                    <li><a href="../user-guide.html">User Guide</a></li>
+                    <li><a href="index.html" class="active">Blog</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="article-container">
+        <a href="index.html" class="back-to-blog">← Back to Blog</a>
+        
+        <article>
+            <header class="article-header">
+                <div class="article-meta">
+                    <div class="article-category">${article.category}</div>
+                    <div class="article-date">
+                        <span>📅</span>
+                        <span>${formatDate(article.createdAt)}</span>
+                    </div>
+                </div>
+                <h1 class="article-title">${article.title}</h1>
+                <p class="article-excerpt">${article.excerpt}</p>
+            </header>
+            
+            <div class="article-content">
+                ${article.content}
+            </div>
+            
+            <div class="article-tags">
+                ${article.tags.map(tag => `<a href="#" class="tag">${tag}</a>`).join('')}
+            </div>
+        </article>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2025 Averonix. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="../terms-of-service.html">Terms of Service</a>
+                <a href="../privacy-policy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>`;
+            
+            // Create and download the file
+            const blob = new Blob([template], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `${article.id}.html`;
+            link.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+    </script>
+</body>
+</html>
