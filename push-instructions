@@ -1,64 +1,11 @@
-🚀 SETUP FOR NEW PC/LAPTOP (First Time Only)
-==============================================
-
-1. Clone the repository to your new computer:
-   git clone https://github.com/Reese876/averonix.lat.git
-
-2. Navigate to the project folder:
-   cd averonix.lat
-
-3. Verify you're connected to the repository:
-   git remote -v
-
-📝 DAILY WORKFLOW (After Setup)
-===============================
-
-Stage your changes
-
-git add .
-
-
-. stages all changes (new, modified, deleted files).
-
-Commit your changes with a message
-
-git commit -m "Your commit message here"
-
-
-Replace "Your commit message here" with a description of your changes.
-
-Push your changes to the remote repository
-
-git push origin main
-
-
-origin = name of your remote repository.
-
-main = branch you are pushing to.
-
-✅ Optional: Check status anytime:
-
-git status
-
-🔄 SYNC CHANGES (If working on multiple computers)
-=================================================
-
-Before starting work on any computer:
-1. Pull latest changes: git pull origin main
-2. Then proceed with your changes using the daily workflow above
-
-💡 TROUBLESHOOTING
-=================
-
-If you get "not a git repository" error:
-- Make sure you're in the correct folder (averonix.lat)
-- Run: git init (only if starting fresh)
-
-If you get merge conflicts:
-- Run: git pull origin main
-- Resolve conflicts in the files
-- Run: git add .
-- Run: git commit -m "Resolve merge conflicts"
-- Run: git push origin main
-
-Repository URL: https://github.com/Reese876/averonix.lat.git
+echo "# averonix-lat" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Reese876/averonix-lat.git
+git push -u origin main
+…or push an existing repository from the command line
+git remote add origin https://github.com/Reese876/averonix-lat.git
+git branch -M main
+git push -u origin main
